@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>org.bytewood.viz</groupId>
+	<artifactId>flex-amf</artifactId>
+	<version>0.1.0</version>
+	<packaging>pom</packaging>
+	<name>Flex AMF Client</name>
+	<description>
+		This is a simple implementation of a flex client using AMF to communicate with a server.
+		@see spring-amf for the associated simple amf server.
+	</description>
+	<properties>
+	   <flex-sdk.version>4.6.b.23201</flex-sdk.version>
+	   <flexmojos-maven.version>4.0-RC2</flexmojos-maven.version>
+	</properties>
+
+	<dependencies>
+        <dependency>
+            <groupId>com.adobe.flex.framework</groupId>
+            <artifactId>flex-framework</artifactId>
+            <version>${flex-sdk.version}</version>
+            <!--version>3.2.0.3958</version-->
+            <type>pom</type>
+        </dependency>
+	</dependencies>
+
+	<build>
+        <finalName>flex-amf</finalName>
+        <sourceDirectory>src/main/flex</sourceDirectory>
+        
+	    <plugins>
+            <plugin>
+                    <groupId>org.sonatype.flexmojos</groupId>
+                    <artifactId>flexmojos-maven-plugin</artifactId>
+                    <version>${flexmojos-maven.version}</version>
+                    <extensions>true</extensions>
+                    <configuration>
+                        <debug>true</debug>
+                        <sourceFile>./Main.mxml</sourceFile>
+                    </configuration>
+                    <dependencies>
+                        <dependency>
+                            <groupId>com.adobe.flex</groupId>
+                            <artifactId>compiler</artifactId>
+                            <version>${flex-sdk.version}</version>
+                            <type>pom</type>
+                        </dependency>
+                    </dependencies>
+                </plugin>
+	    </plugins>
+	</build>
+
+	<repositories>
+		<repository>
+			<id>flexmojos</id>
+			<name>Mojo Repository</name>
+			<url>http://repository.sonatype.org/content/groups/flexgroup</url>
+		</repository>		
+	</repositories>
+	
+	<pluginRepositories>
+        <!-- for flex mojo -->
+		<pluginRepository>
+			<id>flexmojos</id>
+			<name>Mojo Repository</name>
+			<url>http://repository.sonatype.org/content/groups/flexgroup</url>
+		</pluginRepository>
+	</pluginRepositories>
+	
+</project>
