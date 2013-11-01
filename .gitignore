@@ -1,0 +1,9 @@
+.actionScriptProperties
+.classpath
+.flexProperties
+.project
+bin-debug
+target
+*/classes/*
+*/.settings/*
+
