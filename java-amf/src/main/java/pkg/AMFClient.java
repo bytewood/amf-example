@@ -8,14 +8,14 @@ public class AMFClient {
         AMFConnection amfConnection = new AMFConnection();  
         
         try {  
-            String url = "http://localhost:8080/java-amf/messagebroker2/amf/";  
+            String url = "http://localhost:8080/java-amf/messagebroker/user";  
             amfConnection.connect(url);  
             
             //@see .../WEB-INF/flex/remoting-config.xml for destination UserService
-            Object result = amfConnection.call("UserService.sayHello");
+            Object result = amfConnection.call("HelloService.sayHello");
             System.out.println(result);
             
-            result = amfConnection.call("UserService.getById");
+            result = amfConnection.call("UserService.getById", Integer.valueOf(1));
             User user = (User)result;
             System.out.println(user);
             

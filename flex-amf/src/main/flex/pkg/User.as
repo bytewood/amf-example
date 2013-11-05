@@ -5,6 +5,7 @@ package pkg
     public class User
     {
         
+        private var _id:int;
         private var _firstName:String;
         private var _lastName:String;
         
@@ -13,7 +14,15 @@ package pkg
             super();
         }
         
-        
+        public function get id():int
+        {
+            return _id;
+        }
+
+        public function set id(value:int):void
+        {
+            _id = value;
+        }
         public function get firstName():String
         {
             return _firstName;
@@ -33,6 +42,7 @@ package pkg
         {
             _lastName = value;
         }
+
 
         
     }

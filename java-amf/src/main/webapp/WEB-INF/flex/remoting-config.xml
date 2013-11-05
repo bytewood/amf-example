@@ -8,7 +8,6 @@
 
     <default-channels>
         <channel ref="my-amf"/>
-        <channel ref="my-secure-amf"/>
     </default-channels>
     
     <destination id="UserService">
@@ -16,6 +15,19 @@
             <source>pkg.UserService</source>
             <scope>application</scope>
         </properties>
+        <channels>
+            <channel ref="users-channel"/>
+        </channels>
+    </destination>
+
+    <destination id="HelloService">
+        <properties>
+            <source>pkg.HelloService</source>
+            <scope>application</scope>
+        </properties>
+        <channels>
+            <channel ref="hello-channel"/>
+        </channels>
     </destination>
 
 </service>
