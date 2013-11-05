@@ -11,8 +11,15 @@
             <endpoint url="http://{server.name}:{server.port}/{context.root}/messagebroker/amf" class="flex.messaging.endpoints.AMFEndpoint"/>
         </channel-definition>
 
-        <channel-definition id="my-secure-amf" class="mx.messaging.channels.SecureAMFChannel">
-            <endpoint url="https://{server.name}:{server.port}/{context.root}/messagebroker/amfsecure" class="flex.messaging.endpoints.SecureAMFEndpoint"/>
+        <channel-definition id="hello-channel" class="mx.messaging.channels.SecureAMFChannel">
+            <endpoint url="https://{server.name}:{server.port}/{context.root}/messagebroker/hello" class="flex.messaging.endpoints.SecureAMFEndpoint"/>
+            <properties>
+                <add-no-cache-headers>false</add-no-cache-headers>
+            </properties>
+        </channel-definition>
+
+        <channel-definition id="users-channel" class="mx.messaging.channels.SecureAMFChannel">
+            <endpoint url="https://{server.name}:{server.port}/{context.root}/messagebroker/users" class="flex.messaging.endpoints.SecureAMFEndpoint"/>
             <properties>
                 <add-no-cache-headers>false</add-no-cache-headers>
             </properties>
@@ -21,7 +28,7 @@
     </channels>
 
     <logging>
-        <target class="flex.messaging.log.ConsoleTarget" level="Error">
+        <target class="flex.messaging.log.ConsoleTarget" level="DEBUG">
             <properties>
                 <prefix>[BlazeDS] </prefix>
                 <includeDate>false</includeDate>
