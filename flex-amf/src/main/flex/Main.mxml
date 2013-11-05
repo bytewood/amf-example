@@ -44,7 +44,6 @@
             protected function getUserById(event:MouseEvent):void
             {
                 var ro:RemoteObject = secureRemoteObject("https://localhost:8443/java-amf/messagebroker/users");
-
                 ro.destination = "UserService";
                 ro.getById.addEventListener("result", resultHandler);
                 ro.getById(1);
