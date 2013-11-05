@@ -7,6 +7,5 @@ start mvn tomcat7:run
 
 cd ..
 
-cd flex-amf\bin-debug
-start Main.swf
+cygstart "https://localhost:8443/java-amf/Main.html"
 

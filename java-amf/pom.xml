@@ -13,26 +13,26 @@
 	</description>
 
     <properties>
-        <flex-messaging.version>3.2.0</flex-messaging.version>
+        <flex-messaging.version>4.5.0.0-SNAPSHOT</flex-messaging.version>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>com.adobe.blazeds</groupId>
             <artifactId>flex-messaging-common</artifactId>
-            <version>4.5.0.0-SNAPSHOT</version>
+            <version>${flex-messaging.version}</version>
             <type>jar</type>
         </dependency>
         <dependency>
             <groupId>com.adobe.blazeds</groupId>
             <artifactId>flex-messaging-core</artifactId>
-            <version>4.5.0.0-SNAPSHOT</version>
+            <version>${flex-messaging.version}</version>
             <type>jar</type>
         </dependency>
         <dependency>
             <groupId>com.adobe.blazeds</groupId>
             <artifactId>flex-messaging-remoting</artifactId>
-            <version>4.5.0.0-SNAPSHOT</version>
+            <version>${flex-messaging.version}</version>
             <type>jar</type>
         </dependency>
     </dependencies>
@@ -74,6 +74,42 @@
                 <version>2.1</version>
                 <configuration>
                     <port>8080</port>
+                    <httpsPort>8443</httpsPort>
+                    <keystoreFile>../../.keystore</keystoreFile>
+                    <keystorePass>changeit</keystorePass>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>keytool-maven-plugin</artifactId>
+                <version>1.3</version>
+                <executions>
+                    <execution>
+                        <id>remove keystore</id>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>clean</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>create keystore</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>generateKeyPair</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <keystore>.keystore</keystore>
+                    <storepass>changeit</storepass>
+                    <keypass>changeit</keypass>
+                    <alias>tomcat</alias>
+                    <dname>cn=localhost, ou=dev, L=Cape Town, ST=Western Cape, o=bytewood, c=ZA</dname>
+                    <sigalg>SHA1withDSA</sigalg>
+                    <ext></ext>
+                    <validity>365</validity>
+                    <keyalg>DSA</keyalg>
+                    <keysize>1024</keysize>
                 </configuration>
             </plugin>
 

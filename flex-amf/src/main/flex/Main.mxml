@@ -7,22 +7,21 @@
     <fx:Script>
         <![CDATA[
             import mx.collections.ArrayCollection;
+            import mx.messaging.ChannelSet;
+            import mx.messaging.channels.SecureAMFChannel;
             import mx.rpc.events.FaultEvent;
             import mx.rpc.events.ResultEvent;
             import mx.utils.ArrayUtil;
             import mx.utils.ObjectUtil;
             import mx.utils.StringUtil;
-                        
+            
             import pkg.User;
             
-            [bindable] private var protocol:String = "http";
-            [bindable] private var server:String = "localhost";
-            [bindable] private var port:String = "8080";
-            [bindable] private var context:String = "java-amf";
-            [bindable] private var endPoint:String=protocol+ "://" + server + ":" + port + "/" + context + "/messagebroker/amf"; 
+            private var endPoint:String="http://localhost:8080/java-amf/messagebroker/amf";
+            private var sslPoint:String="https://localhost:8443/java-amf/messagebroker/amf";
             
-            [Bindable] private var destination:String="UserService";
-            [Bindable] private var source:String="UserService";
+            private var destination:String="UserService";
+            private var source:String="UserService";
             
             protected function resultHandler(event:ResultEvent):void
             {
@@ -41,21 +40,38 @@
             
             protected function callAmfString(event:MouseEvent):void
             {
+                remoteService.destination = destination;
                 remoteService.endpoint = endPoint;
                 remoteService.sayHello();
             }
             
             protected function callAmfObject(event:MouseEvent):void
             {
+                remoteService.destination = destination;
                 remoteService.endpoint = endPoint;
                 remoteService.getById();
+            }
+        
+            protected function callSecureAmfObject(event:MouseEvent):void
+            {
+                secureService.destination = destination;
+                var secureAmf:SecureAMFChannel  = new SecureAMFChannel("my-secure-amf", sslPoint);
+                var cs:ChannelSet = new ChannelSet(); 
+                cs.addChannel(secureAmf);
+                secureService.channelSet = cs;
+                
+                secureService.getById();
             }
         
         ]]>
     </fx:Script>
     <fx:Declarations>
         <!-- Place non-visual elements (e.g., services, value objects) here -->
-        <s:RemoteObject id="remoteService" destination="{destination}" endpoint="{endPoint}" source="{source}" showBusyCursor="true">
+        <s:RemoteObject id="remoteService" showBusyCursor="true">
+            <s:method name="sayHello" result="resultHandler(event)" fault="faulHandler(event)"></s:method>
+            <s:method name="getById" result="resultHandler(event)" fault="faulHandler(event)"></s:method>
+        </s:RemoteObject>
+        <s:RemoteObject id="secureService" showBusyCursor="true">
             <s:method name="sayHello" result="resultHandler(event)" fault="faulHandler(event)"></s:method>
             <s:method name="getById" result="resultHandler(event)" fault="faulHandler(event)"></s:method>
         </s:RemoteObject>
@@ -64,5 +80,6 @@
         <s:TextArea id="txtId" width="200" height="200"/> 
         <s:Button label="Call String AMF" click="callAmfString(event)"/>
         <s:Button label="Call User AMF" click="callAmfObject(event)"/>
+        <s:Button label="Call User Secure AMF" click="callSecureAmfObject(event)"/>
     </mx:VBox>
 </s:Application>

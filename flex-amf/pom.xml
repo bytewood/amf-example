@@ -13,9 +13,10 @@
 		This is a simple implementation of a flex client using AMF to communicate with a server.
 		@see spring-amf for the associated simple amf server.
 	</description>
+
 	<properties>
 	   <flex-sdk.version>4.6.b.23201</flex-sdk.version>
-	   <flexmojos-maven.version>4.0-RC2</flexmojos-maven.version>
+	   <flexmojos-maven.version>4.2-beta</flexmojos-maven.version>
 	</properties>
 
 	<dependencies>
@@ -23,35 +24,56 @@
             <groupId>com.adobe.flex.framework</groupId>
             <artifactId>flex-framework</artifactId>
             <version>${flex-sdk.version}</version>
-            <!--version>3.2.0.3958</version-->
             <type>pom</type>
         </dependency>
 	</dependencies>
 
 	<build>
-        <finalName>Main</finalName>
         <sourceDirectory>src/main/flex</sourceDirectory>
+        <outputDirectory>../java-amf/src/main/webapp</outputDirectory>
+        <directory>../java-amf/src/main/webapp</directory>
         
 	    <plugins>
+
             <plugin>
-                    <groupId>org.sonatype.flexmojos</groupId>
-                    <artifactId>flexmojos-maven-plugin</artifactId>
-                    <version>${flexmojos-maven.version}</version>
-                    <extensions>true</extensions>
-                    <configuration>
-                        <debug>true</debug>
-                        <sourceFile>./Main.mxml</sourceFile>
-                    </configuration>
-                    <dependencies>
-                        <dependency>
-                            <groupId>com.adobe.flex</groupId>
-                            <artifactId>compiler</artifactId>
-                            <version>${flex-sdk.version}</version>
-                            <type>pom</type>
-                        </dependency>
-                    </dependencies>
-                </plugin>
+                <artifactId>maven-clean-plugin</artifactId>
+                <version>2.5</version>
+                <configuration>
+                    <excludeDefaultDirectories>true</excludeDefaultDirectories>
+                    <filesets>
+                        <fileset>
+                            <directory>${project.build.outputDirectory}</directory>
+                            <includes>
+                                <include>Main*.xml</include>
+                                <include>Main.swf</include>
+                            </includes>
+                        </fileset>
+                    </filesets>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.sonatype.flexmojos</groupId>
+                <artifactId>flexmojos-maven-plugin</artifactId>
+                <version>${flexmojos-maven.version}</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <debug>true</debug>
+                    <sourceFile>./Main.mxml</sourceFile>
+                    <finalName>Main</finalName>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.adobe.flex</groupId>
+                        <artifactId>compiler</artifactId>
+                        <version>${flex-sdk.version}</version>
+                        <type>pom</type>
+                    </dependency>
+                </dependencies>
+            </plugin>
+
 	    </plugins>
+    
 	</build>
 
 	<repositories>
@@ -61,14 +83,13 @@
 			<url>http://repository.sonatype.org/content/groups/flexgroup</url>
 		</repository>		
 	</repositories>
-	
+
 	<pluginRepositories>
-        <!-- for flex mojo -->
 		<pluginRepository>
 			<id>flexmojos</id>
 			<name>Mojo Repository</name>
 			<url>http://repository.sonatype.org/content/groups/flexgroup</url>
 		</pluginRepository>
 	</pluginRepositories>
-	
+
 </project>
