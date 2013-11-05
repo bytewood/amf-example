@@ -6,5 +6,4 @@ bin-debug
 target
 */classes/*
 */.settings/*
-
 .keystore
