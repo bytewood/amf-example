@@ -149,6 +149,7 @@
     <modules>
         <module>flex-amf</module>
         <module>java-amf</module>
+        <module>java-amf-two</module>
     </modules>
 
 </project>
