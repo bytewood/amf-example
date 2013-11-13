@@ -35,7 +35,7 @@
             
             protected function sayHello(event:MouseEvent):void
             {
-                var ro:RemoteObject = secureRemoteObject("https://localhost:8443/java-amf/messagebroker/hello");
+                var ro:RemoteObject = secureRemoteObject("https://localhost/java-amf/messagebroker/hello");
                 ro.destination = "HelloService";
                 ro.sayHello.addEventListener("result", resultHandler);
                 ro.sayHello();
@@ -43,7 +43,7 @@
             
             protected function getUserById(event:MouseEvent):void
             {
-                var ro:RemoteObject = secureRemoteObject("https://localhost:8443/java-amf/messagebroker/users");
+                var ro:RemoteObject = secureRemoteObject("https://localhost/java-amf-two/messagebroker/users");
                 ro.destination = "UserService";
                 ro.getById.addEventListener("result", resultHandler);
                 ro.getById(1);

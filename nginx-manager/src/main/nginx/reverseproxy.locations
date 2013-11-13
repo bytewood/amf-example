@@ -1,0 +1,8 @@
+	location /java-amf/ {
+		proxy_pass https://localhost:8443;
+	}
+	
+	location /java-amf-two/ {
+	   proxy_pass https://localhost:9443;
+	}
+

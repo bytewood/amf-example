@@ -2,14 +2,12 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
     <parent>
         <groupId>org.bytewood.viz</groupId>
         <artifactId>amf-example</artifactId>
         <version>0.1.0</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
-
     <groupId>org.bytewood.viz</groupId>
     <artifactId>java-amf-two</artifactId>
     <version>0.1.0</version>
@@ -18,7 +16,6 @@
     <description>
 		This is a simple implementation of a war using amf to communicate with a flex client.
 	</description>
-
     <dependencies>
         <dependency>
             <groupId>com.adobe.blazeds</groupId>
@@ -33,11 +30,8 @@
             <artifactId>flex-messaging-remoting</artifactId>
         </dependency>
     </dependencies>
-
     <build>
-
         <plugins>
-
             <plugin>
                 <artifactId>maven-clean-plugin</artifactId>
                 <configuration>
@@ -47,6 +41,9 @@
                         </fileset>
                         <fileset>
                             <directory>src/main/webapp/WEB-INF/classes</directory>
+                        </fileset>
+                        <fileset>
+                            <directory>src/main/webapp/surefire-reports</directory>
                         </fileset>
                     </filesets>
                 </configuration>
@@ -73,9 +70,6 @@
                     <keystorePass>changeit</keystorePass>
                 </configuration>
             </plugin>
-        
         </plugins>
-
     </build>
-
 </project>

@@ -1,77 +1,127 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-    <modelVersion>4.0.0</modelVersion>
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
 
-    <parent>
-        <groupId>org.bytewood.viz</groupId>
-        <artifactId>amf-example</artifactId>
-        <version>0.1.0</version>
-    </parent>
+	<parent>
+		<groupId>org.bytewood.viz</groupId>
+		<artifactId>amf-example</artifactId>
+		<version>0.1.0</version>
+	</parent>
 
-    <groupId>org.bytewood.viz</groupId>
-    <artifactId>flex-amf</artifactId>
-    <version>0.1.0</version>
-    <packaging>swf</packaging>
-    <name>Flex AMF Client</name>
-    <description>
+	<groupId>org.bytewood.viz</groupId>
+	<artifactId>flex-amf</artifactId>
+	<version>0.1.0</version>
+	<packaging>swf</packaging>
+	<name>Flex AMF Client</name>
+	<description>
 		This is a simple implementation of a flex client using AMF to communicate with a server.
 		@see spring-amf for the associated simple amf server.
 	</description>
 
-    <dependencies>
-        <dependency>
-            <groupId>com.adobe.flex.framework</groupId>
-            <artifactId>flex-framework</artifactId>
-            <version>${flex.framework.version}</version>
-            <type>pom</type>
-        </dependency>
-    </dependencies>
+	<dependencies>
+		<dependency>
+			<groupId>com.adobe.flex.framework</groupId>
+			<artifactId>flex-framework</artifactId>
+			<version>${flex.framework.version}</version>
+			<type>pom</type>
+		</dependency>
+	</dependencies>
 
-    <build>
-        <sourceDirectory>src/main/flex</sourceDirectory>
-        <outputDirectory>../java-amf/src/main/webapp</outputDirectory>
-        <directory>../java-amf/src/main/webapp</directory>
+	<build>
+		<sourceDirectory>src/main/flex</sourceDirectory>
 
-        <plugins>
+		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>properties-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<phase>initialize</phase>
+						<goals>
+							<goal>read-project-properties</goal>
+						</goals>
+						<configuration>
+							<files>
+								<file>../build.properties</file>
+							</files>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
 
-            <plugin>
-                <artifactId>maven-clean-plugin</artifactId>
-                <configuration>
-                    <excludeDefaultDirectories>true</excludeDefaultDirectories>
-                    <filesets>
-                        <fileset>
-                            <directory>${project.build.outputDirectory}</directory>
-                            <includes>
-                                <include>Main*.xml</include>
-                                <include>Main.swf</include>
-                            </includes>
-                        </fileset>
-                    </filesets>
-                </configuration>
-            </plugin>
+			<plugin>
+				<artifactId>maven-clean-plugin</artifactId>
+				<configuration>
+					<excludeDefaultDirectories>true</excludeDefaultDirectories>
+					<filesets>
+						<fileset>
+							<directory>${nginx.folder}/html/amf-client</directory>
+							<includes>
+								<include>Main*.xml</include>
+								<include>Main.swf</include>
+							</includes>
+						</fileset>
+					</filesets>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-resources-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>copy-resources</id>
+						<!-- here the phase you need -->
+						<phase>package</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${nginx.folder}/html/amf-client</outputDirectory>
+							<overwrite>true</overwrite>
+							<resources>
+								<resource>
+									<directory>src/main/webapp</directory>
+									<includes>
+										<include>fonts.ser</include>
+										<include>Main.html</include>
+										<include>playerProductInstall.swf</include>
+										<include>swfobject.js</include>
+									</includes>
+								</resource>
+								<resource>
+									<directory>target</directory>
+									<includes>
+										<include>Main.swf</include>
+									</includes>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
 
-            <plugin>
-                <groupId>org.sonatype.flexmojos</groupId>
-                <artifactId>flexmojos-maven-plugin</artifactId>
-                <extensions>true</extensions>
-                <configuration>
-                    <debug>true</debug>
-                    <sourceFile>./Main.mxml</sourceFile>
-                    <finalName>Main</finalName>
-                </configuration>
-                <dependencies>
-                    <dependency>
-                        <groupId>com.adobe.flex</groupId>
-                        <artifactId>compiler</artifactId>
-                        <version>${flex.framework.version}</version>
-                        <type>pom</type>
-                    </dependency>
-                </dependencies>
-            </plugin>
 
-        </plugins>
+			<plugin>
+				<groupId>org.sonatype.flexmojos</groupId>
+				<artifactId>flexmojos-maven-plugin</artifactId>
+				<extensions>true</extensions>
+				<configuration>
+					<debug>true</debug>
+					<sourceFile>./Main.mxml</sourceFile>
+					<finalName>Main</finalName>
+				</configuration>
+				<dependencies>
+					<dependency>
+						<groupId>com.adobe.flex</groupId>
+						<artifactId>compiler</artifactId>
+						<version>${flex.framework.version}</version>
+						<type>pom</type>
+					</dependency>
+				</dependencies>
+			</plugin>
 
-    </build>
+		</plugins>
+
+	</build>
 
 </project>
