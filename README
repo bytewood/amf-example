@@ -1,0 +1,26 @@
+Demonstrates how a flex client can talk over SSL to multiple backend servers using a reverse proxy.
+
+The project contains 4 modules
+- A minimal flex client implemented with FLEX_SDK 4.6, built with maven 3.0.4
+- 2 java applications implementing AMF channels using
+-- Java 7
+-- keytool-maven-plugin to create a self signed certificate and keystore
+-- flex-messageing 4.5
+-- Apach Tomcat 7
+- a Nginx manager project that
+-- downloads nginx for windows
+-- creates a self signed certificate using openssl
+
+INSTRUCTIONS:
+
+git clone https://bytewood@www.bitbucket.org/bytewood/amf-example.git
+cd amf-example
+mvn clean package
+run.bat
+
+Doing the above will 
+- open 2 terminal windows with tomcat running on port 8443 and 9443.
+- run nginx
+- run the flex client in your default browser.
+- wait on the command line until a key is pressed, then stop nginx.
+
