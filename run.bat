@@ -16,7 +16,7 @@ cd ..
 start nginx.exe
 
 
-"c:\Program Files\Internet Explorer\iexplore.exe" "https://localhost/amf-client/Main.html"
+start "c:\Program Files\Internet Explorer\iexplore.exe" "https://localhost/amf-client/Main.html"
 
 pause
 
